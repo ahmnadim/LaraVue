@@ -20,11 +20,11 @@
                     <th>Type</th>
                     <th>Action</th>
                   </tr>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
+                  <tr v-for="user in users">
+                    <td>{{user.id}}</td>
+                    <td>{{user.name}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.type}}</td>
                     <td>
                         <a href="#" class="btn btn-primary">
                             <i class="fa fa-edit"></i></a>
@@ -35,51 +35,7 @@
                         </a>
                     </td>
                   </tr>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
-                    <td>
-                        <a href="#" class="btn btn-primary">
-                            <i class="fa fa-edit"></i></a>
-                        </a>
-
-                        <a href="#" class="btn btn-danger">
-                            <i class="fa fa-trash"></i></a>
-                        </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
-                    <td>
-                        <a href="#" class="btn btn-primary">
-                            <i class="fa fa-edit"></i></a>
-                        </a>
-
-                        <a href="#" class="btn btn-danger">
-                            <i class="fa fa-trash"></i></a>
-                        </a>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>11-7-2014</td>
-                    <td><span class="tag tag-success">Approved</span></td>
-                    <td>
-                        <a href="#" class="btn btn-primary">
-                            <i class="fa fa-edit"></i></a>
-                        </a>
-
-                        <a href="#" class="btn btn-danger">
-                            <i class="fa fa-trash"></i></a>
-                        </a>
-                    </td>
-                  </tr>
+                 
                  
                 </tbody></table>
               </div>
@@ -147,6 +103,7 @@
     export default {
          data(){
             return {
+              users:{ },
               form: new Form({
                 name:'',
                 email:'',
@@ -159,12 +116,17 @@
          },
 
          methods:{
+          loadUsers(){
+            axios.get('api/user').then(({ data }) => (this.users = data.data));
+          },
+
           addUser(){
             this.form.post('api/user')
           }
          },
-        mounted() {
-            console.log('Component mounted.')
+
+          created() {
+            this.loadUsers();
         }
     }
 </script>
