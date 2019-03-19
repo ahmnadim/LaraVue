@@ -20,6 +20,15 @@ import moment from 'moment'
 
 Vue.use(VueRouter)
 
+import VueProgressBar from 'vue-progressbar'
+
+Vue.use(VueProgressBar, {
+  color: 'rgb(143, 255, 199)',
+  failedColor: 'red',
+  height: '5px'
+})
+
+
 Vue.filter('upperCase', function(text){
 	return text.charAt(0).toUpperCase() + text.slice(1);
 });
