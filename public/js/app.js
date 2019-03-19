@@ -2039,23 +2039,27 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addUser: function addUser() {
+      var _this2 = this;
+
       this.$Progress.start();
-      this.form.post('api/user');
-      fire.$emit('UserCreated');
-      $('#addusermodal').modal('hide');
-      toast.fire({
-        type: 'success',
-        title: 'User Added successfully'
+      this.form.post('api/user').then(function () {
+        fire.$emit('UserCreated');
+        $('#addusermodal').modal('hide');
+        toast.fire({
+          type: 'success',
+          title: 'User Added successfully'
+        });
+
+        _this2.$Progress.finish();
       });
-      this.$Progress.finish();
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     this.loadUsers();
     fire.$on('UserCreated', function () {
-      _this2.loadUsers();
+      _this3.loadUsers();
     });
   }
 });
