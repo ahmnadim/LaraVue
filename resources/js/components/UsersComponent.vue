@@ -18,20 +18,22 @@
                     <th>User</th>
                     <th>Email</th>
                     <th>Type</th>
+                    <th>Created At</th>
                     <th>Action</th>
                   </tr>
                   <tr v-for="user in users">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
-                    <td>{{user.type}}</td>
+                    <td>{{user.type | upperCase}}</td>
+                    <td>{{user.created_at | diffForHumans}}</td>
                     <td>
-                        <a href="#" class="btn btn-primary">
-                            <i class="fa fa-edit"></i></a>
-                        </a>
+                        <a href="#">
+                            <i class="fa fa-edit blue"></i></a>
+                        </a> || 
 
-                        <a href="#" class="btn btn-danger">
-                            <i class="fa fa-trash"></i></a>
+                        <a href="#">
+                            <i class="fa fa-trash red"></i></a>
                         </a>
                     </td>
                   </tr>

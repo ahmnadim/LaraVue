@@ -16,8 +16,17 @@ Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
 
 import VueRouter from 'vue-router'
+import moment from 'moment'
 
 Vue.use(VueRouter)
+
+Vue.filter('upperCase', function(text){
+	return text.charAt(0).toUpperCase() + text.slice(1);
+});
+
+Vue.filter('diffForHumans', function(text){
+	return moment(text).format("MMM Do YY");
+});
 
 const routes = [
   { path: '/dashboard', component: require('./components/DashboardComponent.vue').default },
