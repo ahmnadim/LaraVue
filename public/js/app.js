@@ -2041,6 +2041,7 @@ __webpack_require__.r(__webpack_exports__);
     addUser: function addUser() {
       this.$Progress.start();
       this.form.post('api/user');
+      fire.$emit('UserCreated');
       $('#addusermodal').modal('hide');
       toast.fire({
         type: 'success',
@@ -2050,7 +2051,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
+    var _this2 = this;
+
     this.loadUsers();
+    fire.$on('UserCreated', function () {
+      _this2.loadUsers();
+    });
   }
 });
 
@@ -73729,6 +73735,7 @@ var toast = sweetalert2__WEBPACK_IMPORTED_MODULE_3___default.a.mixin({
   timer: 3000
 });
 window.toast = toast;
+window.fire = new Vue();
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_4___default.a, {

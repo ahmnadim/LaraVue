@@ -29,6 +29,7 @@ const toast = swal.mixin({
 });
 
 window.toast = toast;
+window.fire = new Vue();
 
 Vue.use(VueRouter)
 

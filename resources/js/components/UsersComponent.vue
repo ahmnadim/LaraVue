@@ -125,6 +125,7 @@
           addUser(){
             this.$Progress.start()
             this.form.post('api/user')
+            fire.$emit('UserCreated');
             $('#addusermodal').modal('hide')
             toast.fire({
               type: 'success',
@@ -136,6 +137,9 @@
 
           created() {
             this.loadUsers();
+            fire.$on('UserCreated', () => {
+              this.loadUsers();
+            });
         }
     }
 </script>
