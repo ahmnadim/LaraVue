@@ -2023,6 +2023,7 @@ __webpack_require__.r(__webpack_exports__);
       editMode: false,
       users: {},
       form: new Form({
+        id: '',
         name: '',
         email: '',
         password: '',
@@ -2034,7 +2035,23 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     updateUser: function updateUser() {
-      console.log("Update Method.");
+      var _this = this;
+
+      this.$Progress.start();
+      this.Progress;
+      this.form.put('api/user/' + this.form.id).then(function () {
+        toast.fire({
+          type: 'success',
+          title: 'User info updated successfully,'
+        });
+        $('#addusermodal').modal('hide');
+
+        _this.$Progress.finish();
+
+        fire.$emit('LoadInfo');
+      }).catch(function () {
+        _this.$Progress.fail();
+      });
     },
     editUser: function editUser(user) {
       this.editMode = true;
@@ -2048,7 +2065,7 @@ __webpack_require__.r(__webpack_exports__);
       $('#addusermodal').modal('show');
     },
     deleteUser: function deleteUser(id) {
-      var _this = this;
+      var _this2 = this;
 
       swal.fire({
         title: 'Are you sure?',
@@ -2060,8 +2077,8 @@ __webpack_require__.r(__webpack_exports__);
         confirmButtonText: 'Yes, delete it!'
       }).then(function (result) {
         if (result.value) {
-          _this.form.delete('api/user/' + id).then(function () {
-            fire.$emit('UserCreated');
+          _this2.form.delete('api/user/' + id).then(function () {
+            fire.$emit('LoadInfo');
             swal.fire('Deleted!', 'User has been deleted.', 'success');
           }).catch(function () {
             swal('Failed!', 'There is something wrong.', 'warning');
@@ -2070,35 +2087,35 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     loadUsers: function loadUsers() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get('api/user').then(function (_ref) {
         var data = _ref.data;
-        return _this2.users = data.data;
+        return _this3.users = data.data;
       });
     },
     addUser: function addUser() {
-      var _this3 = this;
+      var _this4 = this;
 
       this.$Progress.start();
       this.form.post('api/user').then(function () {
-        fire.$emit('UserCreated');
+        fire.$emit('LoadInfo');
         $('#addusermodal').modal('hide');
         toast.fire({
           type: 'success',
           title: 'User Added successfully'
         });
 
-        _this3.$Progress.finish();
+        _this4.$Progress.finish();
       });
     }
   },
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.loadUsers();
-    fire.$on('UserCreated', function () {
-      _this4.loadUsers();
+    fire.$on('LoadInfo', function () {
+      _this5.loadUsers();
     });
   }
 });

@@ -110,6 +110,7 @@
               editMode: false,
               users:{ },
               form: new Form({
+                id:'',
                 name:'',
                 email:'',
                 password:'',
@@ -123,7 +124,22 @@
          methods:{
 
           updateUser(){
-            console.log("Update Method.");
+            this.$Progress.start();
+            this.Progress
+            this.form.put('api/user/'+this.form.id)
+            .then(() => {
+              toast.fire({
+                type: 'success',
+                title: 'User info updated successfully,'
+              });
+              $('#addusermodal').modal('hide');
+              this.$Progress.finish();
+               fire.$emit('LoadInfo');
+
+            })
+            .catch(() => {
+               this.$Progress.fail();
+            });
           },
 
           editUser(user){
@@ -151,7 +167,7 @@
             }).then((result) => {
               if (result.value) {
                 this.form.delete('api/user/'+id).then(()=> {
-                  fire.$emit('UserCreated');
+                  fire.$emit('LoadInfo');
                     swal.fire(
                       'Deleted!',
                       'User has been deleted.',
@@ -173,7 +189,7 @@
             this.$Progress.start()
             this.form.post('api/user')
             .then(() => {
-              fire.$emit('UserCreated');
+              fire.$emit('LoadInfo');
               $('#addusermodal').modal('hide')
               toast.fire({
                 type: 'success',
@@ -187,7 +203,7 @@
 
           created() {
             this.loadUsers();
-            fire.$on('UserCreated', () => {
+            fire.$on('LoadInfo', () => {
               this.loadUsers();
             });
         }
