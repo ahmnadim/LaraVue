@@ -97,7 +97,7 @@
                                 <div class="form-group">
                                     <label for="photo" class="col-sm-2 control-label">Profile Photo</label>
                                     <div class="col-sm-12">
-                                        <input type="file" name="photo" class="form-input">
+                                        <input type="file" v-on:change="UpdatePhoto" name="photo" class="form-input">
                                     </div>
 
                                 </div>
@@ -144,6 +144,18 @@
                 bio:'',
                 photo:''
               })
+            }
+        },
+
+        methods:{
+            UpdatePhoto(e){
+                var file = e.target.files[0];
+                console.log(file);
+                var reader = new FileReader();
+                reader.onloadend = (file) => {
+                    this.form.photo = reader.result;
+                }
+                reader.readAsDataURL(file);
             }
         },
 
