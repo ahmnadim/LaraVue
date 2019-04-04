@@ -71,4 +71,9 @@ class UserController extends Controller
         $user->delete();
 
     }
+
+    public function profile()
+    {
+        return auth('api')->user();
+    }
 }
