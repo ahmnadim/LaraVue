@@ -113,7 +113,7 @@
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-12">
-                                    <button  type="submit" class="btn btn-success">Update</button>
+                                    <button  type="submit" @click.prevent="UpdatInfo" class="btn btn-success">Update</button>
                                     </div>
                                 </div>
                                 </form>
@@ -148,6 +148,13 @@
         },
 
         methods:{
+
+            UpdatInfo(){
+                this.form.put('api/profile')
+                .then(() => {})
+                .catch(() => {});
+            },
+
             UpdatePhoto(e){
                 var file = e.target.files[0];
                 console.log(file);
