@@ -2029,14 +2029,17 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var file = e.target.files[0];
-      console.log(file);
       var reader = new FileReader();
 
-      reader.onloadend = function (file) {
-        _this.form.photo = reader.result;
-      };
+      if (file.size < 2111775) {
+        reader.onloadend = function (file) {
+          _this.form.photo = reader.result;
+        };
 
-      reader.readAsDataURL(file);
+        reader.readAsDataURL(file);
+      } else {
+        swal.fire('Oops!', 'This file is too big.', 'error');
+      }
     }
   },
   mounted: function mounted() {
