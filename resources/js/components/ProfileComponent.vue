@@ -150,9 +150,18 @@
         methods:{
 
             UpdatInfo(){
+                this.$Progress.start();
                 this.form.put('api/profile')
-                .then(() => {})
-                .catch(() => {});
+                .then(() => {
+                    this.$Progress.finish();
+                     toast.fire({
+                        type: 'success',
+                        title: 'Profile info updated successfully,'
+                      });
+                })
+                .catch(() => {
+                    this.$Progress.fail();
+                });
             },
 
             UpdatePhoto(e){

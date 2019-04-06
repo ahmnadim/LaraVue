@@ -2023,17 +2023,29 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     UpdatInfo: function UpdatInfo() {
-      this.form.put('api/profile').then(function () {}).catch(function () {});
+      var _this = this;
+
+      this.$Progress.start();
+      this.form.put('api/profile').then(function () {
+        _this.$Progress.finish();
+
+        toast.fire({
+          type: 'success',
+          title: 'Profile info updated successfully,'
+        });
+      }).catch(function () {
+        _this.$Progress.fail();
+      });
     },
     UpdatePhoto: function UpdatePhoto(e) {
-      var _this = this;
+      var _this2 = this;
 
       var file = e.target.files[0];
       var reader = new FileReader();
 
       if (file.size < 2111775) {
         reader.onloadend = function (file) {
-          _this.form.photo = reader.result;
+          _this2.form.photo = reader.result;
         };
 
         reader.readAsDataURL(file);
@@ -2046,12 +2058,12 @@ __webpack_require__.r(__webpack_exports__);
     console.log('Component mounted.');
   },
   created: function created() {
-    var _this2 = this;
+    var _this3 = this;
 
     axios.get('api/profile').then(function (_ref) {
       var data = _ref.data;
 
-      _this2.form.fill(data);
+      _this3.form.fill(data);
     });
   }
 });
