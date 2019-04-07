@@ -16,7 +16,7 @@
                     <h5 class="widget-user-desc">{{form.type}}</h5>
                 </div>
                 <div class="widget-user-image">
-                    <img class="img-circle" src="" alt="User Avatar">
+                    <img class="img-circle" :src="userProfilePhoto()" alt="User Avatar">
                 </div>
                 <div class="card-footer">
                     <div class="row">
@@ -151,8 +151,16 @@
 
         methods:{
 
+            userProfilePhoto(){
+                let prefix = (this.form.photo.match(/\//) ? '' : '/img/profile/');
+                return prefix + this.form.photo;
+            },
+
             UpdatInfo(){
                 this.$Progress.start();
+                if(this.form.password == ""){
+                    this.form.password = undefined;
+                }
                 this.form.put('api/profile')
                 .then(() => {
                     this.$Progress.finish();

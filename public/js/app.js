@@ -2024,10 +2024,19 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    userProfilePhoto: function userProfilePhoto() {
+      var prefix = this.form.photo.match(/\//) ? '' : '/img/profile/';
+      return prefix + this.form.photo;
+    },
     UpdatInfo: function UpdatInfo() {
       var _this = this;
 
       this.$Progress.start();
+
+      if (this.form.password == "") {
+        this.form.password = undefined;
+      }
+
       this.form.put('api/profile').then(function () {
         _this.$Progress.finish();
 
@@ -60320,19 +60329,24 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "widget-user-image" }, [
+            _c("img", {
+              staticClass: "img-circle",
+              attrs: { src: _vm.userProfilePhoto(), alt: "User Avatar" }
+            })
+          ]),
           _vm._v(" "),
-          _vm._m(1)
+          _vm._m(0)
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col-md-12" }, [
         _c("div", { staticClass: "card" }, [
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
             _c("div", { staticClass: "tab-content" }, [
-              _vm._m(3),
+              _vm._m(2),
               _vm._v(" "),
               _c(
                 "div",
@@ -60607,17 +60621,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "widget-user-image" }, [
-      _c("img", {
-        staticClass: "img-circle",
-        attrs: { src: "", alt: "User Avatar" }
-      })
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
