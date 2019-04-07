@@ -85,6 +85,7 @@ class UserController extends Controller
     public function UpdateProfile(Request $request)
     {
         $user = auth('api')->user();
+        $currentPhoto = $user->photo;
 
         $this->validate($request,[
             'name' => 'required|string|max:191',
@@ -99,7 +100,16 @@ class UserController extends Controller
 
             Image::make($request->photo)->save(public_path('img/profile/').$name);
 
+            $photo = public_path('img/profile/').$currentPhoto;
+            if (file_exists($photo)) {
+                unlink($photo);
+            }
+            
             $user->photo = $name;
+        }
+
+        if (!empty($request->password)) {
+            $user->password = Hash::make($request->password);
         }
 
 
