@@ -152,8 +152,12 @@
         methods:{
 
             userProfilePhoto(){
-                let prefix = (this.form.photo.match(/\//) ? '' : '/img/profile/');
-                return prefix + this.form.photo;
+            
+                // let prefix = (this.form.photo.match(/\//) ? '' : '/img/profile/');
+                // return prefix + this.form.photo;
+
+                let photo = (this.form.photo.length > 200) ? this.form.photo : '/img/profile/'+this.form.photo;
+                return photo;
             },
 
             UpdatInfo(){

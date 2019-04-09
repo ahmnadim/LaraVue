@@ -10,6 +10,8 @@ require('./bootstrap');
 window.Vue = require('vue');
 import { Form, HasError, AlertError } from 'vform'
 window.Form = Form;
+import Gate from './Gate'
+Vue.prototype.Gate = new Gate(window.user);
 
 
 Vue.component(HasError.name, HasError)
