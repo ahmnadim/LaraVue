@@ -84,6 +84,7 @@ Vue.component('passport-authorized-clients', require('./components/passport/Auth
 
 Vue.component('passport-personal-access-tokens', require('./components/passport/PersonalAccessTokens.vue').default
 );
+Vue.component('not-found', require('./components/NotFoundComponent.vue').default);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
 /**

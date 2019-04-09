@@ -2,6 +2,10 @@
     <div class="container">
         <div class="row mt-5">
           <div class="col-md-12">
+             <div class="card" v-if="!Gate.adminOrAuthor()">
+               <not-found></not-found>
+               <h1>NOT FOUND</h1>
+             </div>
             <div class="card" v-if="Gate.adminOrAuthor()">
               <div class="card-header">
                 <h3 class="card-title">Manage Users</h3>
