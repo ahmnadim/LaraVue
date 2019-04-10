@@ -127,6 +127,8 @@ class UserController extends Controller
                 $query->where('name', 'LIKE', "%$search%")
                         ->orWhere('email', 'LIKE', "%$search%");  
             })->paginate(7);
+        }else{
+            $users = User::latest()->paginate(7);
         }
 
         return $users;
