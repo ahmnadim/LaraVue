@@ -18,7 +18,7 @@ class UserController extends Controller
     
     public function index()
     {
-        return User::latest()->paginate(1);
+        return User::latest()->paginate(7);
     }
 
     public function store(Request $request)
@@ -118,5 +118,17 @@ class UserController extends Controller
         $user->bio = $request->bio;
         $user->save();
         return ['message' => 'Successfully'];
+    }
+
+    public function search()
+    {
+        if ($search = \Request::get('q')) {
+            $users = User::where(function($query) use ($search){
+                $query->where('name', 'LIKE', "%$search%")
+                        ->orWhere('email', 'LIKE', "%$search%");  
+            })->paginate(7);
+        }
+
+        return $users;
     }
 }

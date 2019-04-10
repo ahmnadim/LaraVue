@@ -2382,6 +2382,12 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this6 = this;
 
+    fire.$on('searching', function () {
+      var query = _this6.$parent.search;
+      axios.get('api/findUser?q=' + query).then(function (data) {
+        _this6.users = data.data;
+      }).catch();
+    });
     this.loadUsers();
     fire.$on('LoadInfo', function () {
       _this6.loadUsers();
@@ -79214,7 +79220,15 @@ Vue.component('example-component', __webpack_require__(/*! ./components/ExampleC
 
 var app = new Vue({
   el: '#app',
-  router: router
+  router: router,
+  data: {
+    search: ''
+  },
+  methods: {
+    searchIt: function searchIt() {
+      fire.$emit('searching');
+    }
+  }
 });
 
 /***/ }),
