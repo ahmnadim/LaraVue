@@ -25,7 +25,7 @@
                     <th>Created At</th>
                     <th>Action</th>
                   </tr>
-                  <tr v-for="user in users">
+                  <tr v-for="user in users.data">
                     <td>{{user.id}}</td>
                     <td>{{user.name}}</td>
                     <td>{{user.email}}</td>
@@ -46,6 +46,9 @@
                 </tbody></table>
               </div>
               <!-- /.card-body -->
+              <div class="card-footer">
+                <pagination :data="users" @pagination-change-page="getResults"></pagination>
+              </div>
             </div>
             <!-- /.card -->
           </div>
@@ -127,6 +130,13 @@
 
          methods:{
 
+          getResults(page = 1) {
+            axios.get('api/user?page=' + page)
+              .then(response => {
+                this.users = response.data;
+              });
+          },
+
           updateUser(){
             this.$Progress.start();
             this.Progress
@@ -187,7 +197,7 @@
 
           loadUsers(){
             if (this.Gate.adminOrAuthor()) {
-            axios.get('api/user').then(({ data }) => (this.users = data.data));
+            axios.get('api/user').then(({ data }) => (this.users = data));
 
             }
           },
